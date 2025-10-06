@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Senin İçin 💖</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(to bottom, #1a001a, #000);
+      color: white;
+      font-family: 'Dancing Script', cursive, 'Segoe UI', sans-serif;
+      overflow: hidden;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .message {
+      text-align: center;
+      z-index: 10;
+      font-size: 2.8rem;
+      text-shadow: 0 0 20px rgba(255, 50, 50, 0.9);
+      animation: glow 2s infinite alternate;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 20px;
+      max-width: 90%;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #ff0040, 0 0 20px #ff0040; }
+      to   { text-shadow: 0 0 20px #ff0066, 0 0 30px #ff3366; }
+    }
+
+    .raindrop {
+      position: absolute;
+      top: -50px;
+      font-size: 2rem;
+      user-select: none;
+      pointer-events: none;
+      z-index: 1;
+      animation: fall linear forwards;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh) rotate(360deg);
+      }
+    }
+  </style>
+  <!-- Güzel yazı tipi için Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="message">Hayatımın en önemlisi oldun, minnoşum 💖</div>
+
+  <script>
+    const body = document.body;
+    const emoji = '🌹';
+    let count = 0;
+    const maxFlowers = 200; // Aynı anda en fazla 200 gül
+
+    function createFlower() {
+      if (count >= maxFlowers) return;
+
+      const flower = document.createElement('div');
+      flower.className = 'raindrop';
+      flower.textContent = emoji;
+
+      // Rastgele yatay konum
+      const left = Math.random() * 100;
+      // Rastgele boyut
+      const size = 1 + Math.random() * 1.5;
+      // Rastgele animasyon süresi (hız)
+      const duration = 3 + Math.random() * 7; // 3-10 saniye
+
+      flower.style.left = `${left}vw`;
+      flower.style.fontSize = `${size}rem`;
+      flower.style.animationDuration = `${duration}s`;
+
+      document.body.appendChild(flower);
+      count++;
+
+      // Çiçek animasyonu bittiğinde sil
+      setTimeout(() => {
+        if (flower.parentNode) {
+          flower.parentNode.removeChild(flower);
+          count--;
+        }
+      }, duration * 1000);
+    }
+
+    // Her 150-300 ms'de bir yeni gül oluştur
+    setInterval(createFlower, 200);
+
+    // İlk başta hızlıca doldurmak için
+    for (let i = 0; i < 50; i++) {
+      setTimeout(createFlower, i * 100);
+    }
+  </script>
+</body>
+</html>
